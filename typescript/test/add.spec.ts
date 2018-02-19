@@ -1,5 +1,5 @@
 import { property, number } from 'jsverify'
-import { add } from './add'
+import { add } from '../src/add'
 
 describe('add()', () => {
   property('commutativity', number, number,

@@ -1,7 +1,5 @@
 {
   "extends": [
-    "tslint-config-standard",
-    "tslint-react",
-    "tslint-config-prettier"
+    "tslint-config-standard"
   ]
 }

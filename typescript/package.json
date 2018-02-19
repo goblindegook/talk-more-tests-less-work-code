@@ -4,17 +4,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "lint": "tslint .",
-    "format": "prettier-standard '**/*.{js,jsx,ts,tsx,json,css,md}'",
+    "lint": "tslint '{src,test}/**/*.{ts,tsx}'",
     "test": "jest"
-  },
-  "lint-staged": {
-    "linters": {
-      "src/**/*.{js,ts,tsx,json,css,md}": [
-        "prettier-standard",
-        "git add"
-      ]
-    }
   },
   "jest": {
     "transform": {
@@ -32,17 +23,12 @@
   },
   "devDependencies": {
     "@types/jest": "^22.0.1",
-    "husky": "^0.14.3",
     "jest": "^22.0.6",
     "jest-cli": "^22.0.6",
     "jsverify": "^0.8.3",
-    "lint-staged": "^6.0.0",
-    "prettier-standard": "^8.0.0",
     "ts-jest": "^22.0.0",
     "tslint": "^5.9.1",
-    "tslint-config-prettier": "^1.6.0",
-    "tslint-config-standard": "^7.0.0",
-    "tslint-react": "^3.3.3"
+    "tslint-config-standard": "^7.0.0"
   },
   "dependencies": {}
 }

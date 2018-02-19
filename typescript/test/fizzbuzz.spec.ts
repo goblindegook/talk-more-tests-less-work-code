@@ -1,5 +1,5 @@
 import { property, int8, suchthat } from 'jsverify'
-import { fizzbuzz } from './fizzbuzz'
+import { fizzbuzz } from '../src/fizzbuzz'
 
 describe('fizzbuzz()', () => {
   property('fizz', suchthat(int8, i => i % 3 === 0 && i % 5 !== 0),
