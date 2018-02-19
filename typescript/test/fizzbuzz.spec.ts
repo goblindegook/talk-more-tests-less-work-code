@@ -1,22 +1,22 @@
-import { property, int8, suchthat } from 'jsverify'
+import { property, integer, suchthat } from 'jsverify'
 import { fizzbuzz } from '../src/fizzbuzz'
 
 describe('fizzbuzz()', () => {
-  property('fizz', suchthat(int8, i => i % 3 === 0 && i % 5 !== 0),
-    (a) => fizzbuzz(a, a)[0] === 'fizz')
+  property('fizz', suchthat(integer, i => i % 3 === 0 && i % 5 !== 0),
+    a => fizzbuzz(a, a)[0] === 'fizz')
 
-  property('buzz', suchthat(int8, i => i % 5 === 0 && i % 3 !== 0),
-    (a) => fizzbuzz(a, a)[0] === 'buzz')
+  property('buzz', suchthat(integer, i => i % 5 === 0 && i % 3 !== 0),
+    a => fizzbuzz(a, a)[0] === 'buzz')
 
-  property('fizzbuzz', int8,
-    (a) => fizzbuzz(a * 15, a * 15)[0] === 'fizzbuzz')
+  property('fizzbuzz', integer,
+    a => fizzbuzz(a * 15, a * 15)[0] === 'fizzbuzz')
 
-  property('integer', suchthat(int8, i => i % 3 !== 0 && i % 5 !== 0),
-    (a) => fizzbuzz(a, a)[0] === `${a}`)
+  property('integer', suchthat(integer, i => i % 3 !== 0 && i % 5 !== 0),
+    a => fizzbuzz(a, a)[0] === `${a}`)
 
-  property('length', int8, int8,
+  property('length', integer, integer,
     (a, b) => fizzbuzz(a, b).length === 1 + Math.abs(b - a))
 
-  property('different successor', int8,
-    (a) => fizzbuzz(a, a + 1)[0] !== fizzbuzz(a, a + 1)[1])
+  property('different successor', integer,
+    a => fizzbuzz(a, a + 1)[0] !== fizzbuzz(a, a + 1)[1])
 })
