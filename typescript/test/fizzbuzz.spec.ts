@@ -1,5 +1,5 @@
 import { property, integer, suchthat } from 'jsverify'
-import { equals, reverse } from 'ramda'
+import { isEqual, range } from 'lodash'
 import { fizzbuzz } from '../src/fizzbuzz'
 
 describe('fizzbuzz()', () => {
@@ -15,6 +15,6 @@ describe('fizzbuzz()', () => {
   property('single integer', suchthat(integer, i => i % 3 > 0 && i % 5 > 0),
     a => fizzbuzz(a, a)[0] === `${a}`)
 
-  property('element order', integer, integer,
-    (a, b) => equals(fizzbuzz(a, b), reverse(fizzbuzz(b, a))))
+  property('element sequence', integer, integer,
+    (a, b) => isEqual(fizzbuzz(a, b), [...range(a, b), b].map(n => fizzbuzz(n, n)[0])))
 })

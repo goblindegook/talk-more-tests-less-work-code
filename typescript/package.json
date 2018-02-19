@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@types/jest": "^22.0.1",
-    "@types/ramda": "^0.25.18",
+    "@types/lodash": "^4.14.104",
     "jest": "^22.0.6",
     "jest-cli": "^22.0.6",
     "jsverify": "^0.8.3",
@@ -33,6 +33,6 @@
     "typescript": "^2.7.2"
   },
   "dependencies": {
-    "ramda": "^0.25.0"
+    "lodash": "^4.17.5"
   }
 }
