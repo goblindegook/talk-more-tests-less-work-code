@@ -1,20 +1,28 @@
-import { property, integer, suchthat } from 'jsverify'
+import { property, integer, suchthat, Arbitrary } from 'jsverify'
 import { isEqual, range } from 'lodash'
 import { fizzbuzz } from '../src/fizzbuzz'
 
+const multiple = (m: number) => integer.smap(t => t * m, u => u / m)
+
+const indivisible = (g: Arbitrary<number>, d: number) => suchthat(g, u => u % d > 0)
+
 describe('fizzbuzz()', () => {
-  property('single fizz', suchthat(integer, i => i % 3 === 0 && i % 5 > 0),
-    a => fizzbuzz(a, a)[0] === 'fizz')
+  property('single fizz', indivisible(multiple(3), 5),
+    a => isEqual(fizzbuzz(a, a), ['fizz']))
 
-  property('single buzz', suchthat(integer, i => i % 5 === 0 && i % 3 > 0),
-    a => fizzbuzz(a, a)[0] === 'buzz')
+  property('single buzz', indivisible(multiple(5), 3),
+    a => isEqual(fizzbuzz(a, a), ['buzz']))
 
-  property('single fizzbuzz', integer,
-    a => fizzbuzz(a * 15, a * 15)[0] === 'fizzbuzz')
+  property('single fizzbuzz', multiple(15),
+    a => isEqual(fizzbuzz(a, a), ['fizzbuzz']))
 
-  property('single integer', suchthat(integer, i => i % 3 > 0 && i % 5 > 0),
-    a => fizzbuzz(a, a)[0] === `${a}`)
+  property('single integer', indivisible(indivisible(integer, 3), 5),
+    a => isEqual(fizzbuzz(a, a), [`${a}`]))
 
   property('element sequence', integer, integer,
-    (a, b) => isEqual(fizzbuzz(a, b), [...range(a, b), b].map(n => fizzbuzz(n, n)[0])))
+    (a, b) => isEqual(
+      fizzbuzz(a, b),
+      [...range(a, b), b].map(n => fizzbuzz(n, n)[0])
+    )
+  )
 })
