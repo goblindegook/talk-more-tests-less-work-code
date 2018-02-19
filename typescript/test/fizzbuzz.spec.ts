@@ -4,7 +4,7 @@ import { fizzbuzz } from '../src/fizzbuzz'
 
 const multiple = (m: number) => integer.smap(t => t * m, u => u / m)
 
-const indivisible = (g: Arbitrary<number>, d: number) => suchthat(g, u => u % d > 0)
+const indivisible = (arb: Arbitrary<number>, n: number) => suchthat(arb, u => u % n > 0)
 
 describe('fizzbuzz()', () => {
   property('single fizz', indivisible(multiple(3), 5),
