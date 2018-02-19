@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@types/jest": "^22.0.1",
+    "@types/ramda": "^0.25.18",
     "jest": "^22.0.6",
     "jest-cli": "^22.0.6",
     "jsverify": "^0.8.3",
@@ -31,5 +32,7 @@
     "tslint-config-standard": "^7.0.0",
     "typescript": "^2.7.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "ramda": "^0.25.0"
+  }
 }
