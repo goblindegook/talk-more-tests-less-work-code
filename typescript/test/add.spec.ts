@@ -1,8 +1,15 @@
-import { property, number } from 'jsverify'
+import { property, integer, number, check, forall } from 'jsverify'
 import { add } from '../src/add'
 
 describe('add()', () => {
-  property('commutativity', number, number,
+  it('commutativity', () => {
+    check(forall(number, number,
+      (a, b) => add(a, b) === add(b, a)))
+  })
+
+  // property is a BDD-style shorthand for forall |> check
+
+  property('commutativity (property)', number, number,
     (a, b) => add(a, b) === add(b, a))
 
   property('associativity', number, number, number,
@@ -17,6 +24,6 @@ describe('add()', () => {
   property('opposites', number,
     (a) => add(-a, a) === 0)
 
-  property('multiplicative distributivity', number, number, number,
+  property('multiplicative distributivity', integer, number, number,
     (a, b, c) => a * add(b, c) === add(a * b, a * c))
 })
