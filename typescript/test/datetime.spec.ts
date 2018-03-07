@@ -1,6 +1,6 @@
 import { property, nat, bless } from 'jsverify'
 
-describe('Arbitrary datetime with smap', () => {
+xdescribe('Arbitrary datetime with smap', () => {
   const datetime = nat.smap(
     // generator
     n => new Date(n * 768000000),
@@ -12,11 +12,11 @@ describe('Arbitrary datetime with smap', () => {
 
   property('generates dates', datetime, d => d instanceof Date)
 
-  // this will fail
-  // property('generates future dates', datetime, d => d > new Date())
+  // This will fail:
+  property('generates future dates', datetime, d => d > new Date())
 })
 
-describe('Arbitrary datetime with bless', () => {
+xdescribe('Arbitrary datetime with bless', () => {
   const datetime = bless({
     generator: nat.generator.map(n => new Date(n * 768000000))
     // No shrinker!
@@ -24,6 +24,6 @@ describe('Arbitrary datetime with bless', () => {
 
   property('generates dates', datetime, d => d instanceof Date)
 
-  // this will fail, but notice how the unshrunk value is less helful
-  // property('generates future dates', datetime, d => d > new Date())
+  // This will fail, but notice how the unshrunk value is less helpful:
+  property('generates future dates', datetime, d => d > new Date())
 })
