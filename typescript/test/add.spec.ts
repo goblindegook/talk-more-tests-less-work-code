@@ -1,5 +1,8 @@
 import { property, integer, number, check, forall } from 'jsverify'
-import { add } from '../src/add'
+
+function add (a: number, b: number): number {
+  return a + b
+}
 
 describe('add()', () => {
   it('commutativity', () => {
