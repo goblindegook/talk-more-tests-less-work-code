@@ -1,12 +1,21 @@
 import { property, integer, suchthat, Arbitrary } from 'jsverify'
 import { isEqual, range } from 'lodash'
-import { fizzbuzz } from '../src/fizzbuzz'
+
+export function fizzbuzz (a: number, b: number): string[] {
+  return [...range(a, b), b]
+    .map(n =>
+      n % 15 === 0 ? 'fizzbuzz' :
+      n % 5 === 0 ? 'buzz' :
+      n % 3 === 0 ? 'fizz' :
+      `${n}`
+    )
+}
 
 const multiple = (m: number) => integer.smap(t => t * m, u => u / m)
 
 const indivisible = (arb: Arbitrary<number>, n: number) => suchthat(arb, u => u % n > 0)
 
-xdescribe('fizzbuzz()', () => {
+describe('fizzbuzz()', () => {
   property('single fizz', indivisible(multiple(3), 5),
     a => isEqual(fizzbuzz(a, a), ['fizz']))
 
