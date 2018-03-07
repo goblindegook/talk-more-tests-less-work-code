@@ -1,4 +1,4 @@
-import { property, integer, nat, bless } from 'jsverify'
+import { property, nat, bless } from 'jsverify'
 
 // Helper
 
@@ -8,10 +8,10 @@ function createArray (length: number): number[] {
 
 // Custom arbitraries
 
-const withShrink = nat.smap(createArray, l => l.length)
+const withShrink = (size: number) => nat(size).smap(createArray, l => l.length)
 
-const withoutShrink = bless({
-  generator: nat.generator.map(createArray)
+const withoutShrink = (size: number) => bless({
+  generator: nat(size).generator.map(createArray)
 })
 
 // Function to test (with intentional bug)
@@ -23,6 +23,6 @@ function count (list: number[]): number {
 // Tests
 
 xdescribe('Test', () => {
-  property('fails with a shrink', withShrink, list => count(list) === list.length)
-  property('fails without a shrink', withoutShrink, list => count(list) === list.length)
+  property('fails with a shrink', withShrink(100), list => count(list) === list.length)
+  property('fails without a shrink', withoutShrink(100), list => count(list) === list.length)
 })

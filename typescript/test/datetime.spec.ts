@@ -1,6 +1,6 @@
 import { property, nat, bless } from 'jsverify'
 
-describe('Arbitrary datetime with smap', () => {
+xdescribe('Arbitrary datetime with smap', () => {
   const datetime = nat(Number.MAX_SAFE_INTEGER).smap(
     // generator
     n => new Date(n),
@@ -16,7 +16,7 @@ describe('Arbitrary datetime with smap', () => {
   property('generates future dates', datetime, d => d > new Date())
 })
 
-describe('Arbitrary datetime with bless', () => {
+xdescribe('Arbitrary datetime with bless', () => {
   const datetime = bless({
     generator: nat(Number.MAX_SAFE_INTEGER).generator.map(n => new Date(n))
     // No shrinker!
