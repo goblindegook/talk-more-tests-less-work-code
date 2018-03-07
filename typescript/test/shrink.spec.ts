@@ -1,17 +1,15 @@
 import { property, nat, bless } from 'jsverify'
-
-// Helper
-
-function createArray (length: number): number[] {
-  return Array.apply(null, { length }).map((v: any, i: number) => i)
-}
+import { range } from 'lodash'
 
 // Custom arbitraries
 
-const withShrink = (size: number) => nat(size).smap(createArray, l => l.length)
+const withShrink = (size: number) => nat(size).smap(
+  max => range(0, max), // generator
+  list => list.length   // shrink -> generator(shrink(y)) = y
+)
 
 const withoutShrink = (size: number) => bless({
-  generator: nat(size).generator.map(createArray)
+  generator: nat(size).generator.map(max => range(0, max))
 })
 
 // Function to test (with intentional bug)
