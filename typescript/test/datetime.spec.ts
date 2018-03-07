@@ -1,11 +1,11 @@
 import { property, nat, bless } from 'jsverify'
 
-xdescribe('Arbitrary datetime with smap', () => {
-  const datetime = nat.smap(
+describe('Arbitrary datetime with smap', () => {
+  const datetime = nat(Number.MAX_SAFE_INTEGER).smap(
     // generator
-    n => new Date(n * 768000000),
+    n => new Date(n),
     // shrink
-    d => d.getTime() / 768000000,
+    d => d.getTime(),
     // show
     d => d.toString()
   )
@@ -16,9 +16,9 @@ xdescribe('Arbitrary datetime with smap', () => {
   property('generates future dates', datetime, d => d > new Date())
 })
 
-xdescribe('Arbitrary datetime with bless', () => {
+describe('Arbitrary datetime with bless', () => {
   const datetime = bless({
-    generator: nat.generator.map(n => new Date(n * 768000000))
+    generator: nat(Number.MAX_SAFE_INTEGER).generator.map(n => new Date(n))
     // No shrinker!
   })
 
