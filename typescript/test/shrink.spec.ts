@@ -19,8 +19,8 @@ xdescribe('Test without a shrink', () => {
 
 xdescribe('Test with a shrink', () => {
   const shrinkableArray = (size: number) => nat(size).smap(
-    max => range(0, max), // generator
-    list => list.length   // shrink -> generator(shrink(y)) = y
+    length => range(0, length), // generator
+    list => list.length         // shrink -> generator(shrink(y)) = y
   )
 
   property('fails', shrinkableArray(200), list => count(list) === list.length)

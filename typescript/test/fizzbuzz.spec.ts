@@ -29,14 +29,17 @@ xdescribe('fizzbuzz()', () => {
   property('single integer', indivisible(indivisible(integer, 3), 5),
     a => isEqual(fizzbuzz(a, a + 1), [`${a}`]))
 
-  property('multiples of 3 start with fizz',
-    multiple(3), a => fizzbuzz(a, a + 1)[0].startsWith('fizz'))
+  property('multiples of 3 start with fizz', multiple(3),
+    a => fizzbuzz(a, a + 1)[0].startsWith('fizz'))
 
-  property('multiples of 5 end with buzz',
-    multiple(5), a => fizzbuzz(a, a + 1)[0].endsWith('buzz'))
+  property('multiples of 5 end with buzz', multiple(5),
+    a => fizzbuzz(a, a + 1)[0].endsWith('buzz'))
 
-  property('expected outputs',
-    integer, a => [`${a}`, 'fizz', 'buzz', 'fizzbuzz'].includes(fizzbuzz(a, a + 1)[0]))
+  property('expected outputs', integer,
+    a => [`${a}`, 'fizz', 'buzz', 'fizzbuzz'].includes(fizzbuzz(a, a + 1)[0]))
+
+  property('length', integer, integer,
+    (a, b) => fizzbuzz(a, b).length === Math.sqrt((b - a) * (b - a)))
 
   property('element sequence', integer, integer,
     (a, b) => isEqual(
