@@ -11,7 +11,7 @@ export function fizzbuzz (a: number, b: number): string[] {
     )
 }
 
-describe('fizzbuzz()', () => {
+xdescribe('fizzbuzz()', () => {
   const multiple = (m: number) => integer.smap(t => t * m, u => u / m)
 
   const indivisible = (arb: Arbitrary<number>, n: number) =>

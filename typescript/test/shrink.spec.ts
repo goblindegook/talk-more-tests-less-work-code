@@ -1,17 +1,6 @@
 import { property, nat, bless } from 'jsverify'
 import { range } from 'lodash'
 
-// Custom arbitraries
-
-const withShrink = (size: number) => nat(size).smap(
-  max => range(0, max), // generator
-  list => list.length   // shrink -> generator(shrink(y)) = y
-)
-
-const withoutShrink = (size: number) => bless({
-  generator: nat(size).generator.map(max => range(0, max))
-})
-
 // Function to test (with intentional bug)
 
 function count (list: number[]): number {
@@ -20,7 +9,19 @@ function count (list: number[]): number {
 
 // Tests
 
-xdescribe('Test', () => {
-  property('fails with a shrink', withShrink(100), list => count(list) === list.length)
-  property('fails without a shrink', withoutShrink(100), list => count(list) === list.length)
+xdescribe('Test without a shrink', () => {
+  const unshrinkableArray = (size: number) => bless({
+    generator: nat(size).generator.map(max => range(0, max))
+  })
+
+  property('fails', unshrinkableArray(200), list => count(list) === list.length)
+})
+
+xdescribe('Test with a shrink', () => {
+  const shrinkableArray = (size: number) => nat(size).smap(
+    max => range(0, max), // generator
+    list => list.length   // shrink -> generator(shrink(y)) = y
+  )
+
+  property('fails', shrinkableArray(200), list => count(list) === list.length)
 })

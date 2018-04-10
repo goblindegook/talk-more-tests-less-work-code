@@ -4,7 +4,7 @@ function add (a: number, b: number): number {
   return a + b
 }
 
-describe('add()', () => {
+xdescribe('add()', () => {
   it('commutativity', () => {
     check(forall(integer, integer,
       (a, b) => add(a, b) === add(b, a)))
